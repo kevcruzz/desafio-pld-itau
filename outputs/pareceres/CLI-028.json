@@ -1,13 +1,12 @@
 {
   "cliente_id": "CLI-028",
-  "status": "erro_api",
-  "nivel_risco": null,
-  "tipologia_suspeita": null,
+  "status": "ok",
+  "nivel_risco": "baixo",
+  "tipologia_suspeita": "Nao caracterizada",
   "red_flags": [],
-  "justificativa": null,
+  "justificativa": "Os valores das duas operações (R$ 27.715,48 e R$ 24.875,39) excedem o limite de R$ 22.151,25, mas são isoladas e não indicam fracionamento, uso intensivo de espécie, remessa internacional atípica, interposição de pessoa ou incompatibilidade com o perfil. O histórico mostra apenas 12 operações, com ticket médio de R$ 7.395,90, e as duas operações de alto valor são únicas e não repetidas. Assim, a sinalização não se sustenta.",
   "ferramentas_chamadas": [
     "historico_cliente",
-    "perfil_canal",
     "operacoes_do_dia"
   ],
   "trajetoria": [
@@ -20,25 +19,23 @@
     },
     {
       "iteracao": 2,
-      "ferramenta": "perfil_canal",
-      "argumentos": {
-        "cliente_id": "CLI-028"
-      }
-    },
-    {
-      "iteracao": 3,
       "ferramenta": "operacoes_do_dia",
       "argumentos": {
         "cliente_id": "CLI-028",
         "data": "2026-03-21"
       }
+    },
+    {
+      "iteracao": 3,
+      "ferramenta": "emitir_parecer",
+      "argumentos": {}
     }
   ],
-  "n_iteracoes": 4,
-  "tokens_entrada": 6068,
-  "tokens_saida": 802,
-  "latencia_s": 32.65150790000007,
-  "custo_estimado_usd": 0.004214,
-  "modelo": "openai/gpt-oss-120b",
-  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198877, Requested 3350. Please try again in 16m2.064s. Need more tokens? Upgrade to Dev Ti"
+  "n_iteracoes": 3,
+  "tokens_entrada": 5954,
+  "tokens_saida": 1123,
+  "latencia_s": 40.91370129999996,
+  "custo_estimado_usd": 0.0044,
+  "modelo": "openai/gpt-oss-20b",
+  "erro": null
 }

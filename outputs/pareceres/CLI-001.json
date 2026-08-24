@@ -1,17 +1,40 @@
 {
   "cliente_id": "CLI-001",
-  "status": "erro_api",
-  "nivel_risco": null,
-  "tipologia_suspeita": null,
+  "status": "ok",
+  "nivel_risco": "medio",
+  "tipologia_suspeita": "Uso intensivo de espécie",
   "red_flags": [],
-  "justificativa": null,
-  "ferramentas_chamadas": [],
-  "trajetoria": [],
-  "n_iteracoes": 1,
-  "tokens_entrada": 0,
-  "tokens_saida": 0,
-  "latencia_s": 0.08740800000123272,
-  "custo_estimado_usd": 0.0,
-  "modelo": "openai/gpt-oss-120b",
-  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198875, Requested 2312. Please try again in 8m32.784s. Need more tokens? Upgrade to Dev Ti"
+  "justificativa": "O cliente realizou um depósito em espécie de R$ 25.110,15, representando 52,4 % do volume total e 5,2 vezes o ticket médio, além de um saque via TED de R$ 9.490,55, 2,0 vezes o ticket médio; ambos excedem o limite de R$ 8.045,77 definido pela regra de valor atípico. Esses valores são anômalos em relação ao histórico do cliente, que possui apenas 10 operações com ticket médio de R$ 4.794,78.",
+  "ferramentas_chamadas": [
+    "historico_cliente",
+    "perfil_canal"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-001"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "perfil_canal",
+      "argumentos": {
+        "cliente_id": "CLI-001"
+      }
+    },
+    {
+      "iteracao": 3,
+      "ferramenta": "emitir_parecer",
+      "argumentos": {}
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 6112,
+  "tokens_saida": 2718,
+  "latencia_s": 49.69388529999924,
+  "custo_estimado_usd": 0.005753,
+  "modelo": "openai/gpt-oss-20b",
+  "erro": null
 }

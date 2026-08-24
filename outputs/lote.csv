@@ -1,11 +1,11 @@
 cliente_id,status,nivel_risco,tipologia_suspeita,n_red_flags,ferramentas_chamadas,n_chamadas_ferramenta,n_iteracoes,tokens_entrada,tokens_saida,latencia_s,custo_estimado_usd,modelo
-CLI-014,ok,baixo,Nao caracterizada,0,historico_cliente,1,2,3709,795,9.06,0.002816,openai/gpt-oss-120b
-CLI-023,ok,baixo,Nao caracterizada,0,historico_cliente > perfil_canal,2,3,6074,1029,15.62,0.004397,openai/gpt-oss-120b
-CLI-028,erro_api,,,0,historico_cliente > perfil_canal > operacoes_do_dia,3,4,6068,802,32.65,0.004214,openai/gpt-oss-120b
-CLI-013,erro_api,,,0,(nenhuma),0,1,0,0,0.11,0.0,openai/gpt-oss-120b
-CLI-005,erro_api,,,0,(nenhuma),0,1,0,0,0.11,0.0,openai/gpt-oss-120b
-CLI-026,erro_api,,,0,(nenhuma),0,1,0,0,0.11,0.0,openai/gpt-oss-120b
-CLI-001,erro_api,,,0,(nenhuma),0,1,0,0,0.09,0.0,openai/gpt-oss-120b
-CLI-029,erro_api,,,0,(nenhuma),0,1,0,0,0.11,0.0,openai/gpt-oss-120b
-CLI-017,erro_api,,,0,(nenhuma),0,1,0,0,0.12,0.0,openai/gpt-oss-120b
-CLI-030,erro_api,,,0,(nenhuma),0,1,0,0,0.09,0.0,openai/gpt-oss-120b
+CLI-014,ok,baixo,Nao caracterizada,0,historico_cliente > operacoes_do_dia > operacoes_do_dia > operacoes_do_dia,4,5,11159,2436,64.5,0.008508,openai/gpt-oss-20b
+CLI-023,erro_api,,,0,(nenhuma),0,1,0,0,18.63,0.0,openai/gpt-oss-20b
+CLI-028,ok,baixo,Nao caracterizada,0,historico_cliente > operacoes_do_dia,2,3,5954,1123,40.91,0.0044,openai/gpt-oss-20b
+CLI-013,falha_validacao,,,0,historico_cliente,1,2,3660,3081,54.81,0.004593,openai/gpt-oss-20b
+CLI-005,ok,medio,Incompatibilidade com o perfil,0,historico_cliente,1,2,3674,1892,76.33,0.003662,openai/gpt-oss-20b
+CLI-026,ok,baixo,Nao caracterizada,0,historico_cliente > operacoes_do_dia,2,3,5958,2144,62.19,0.005209,openai/gpt-oss-20b
+CLI-001,ok,medio,Uso intensivo de espécie,0,historico_cliente > perfil_canal,2,3,6112,2718,49.69,0.005753,openai/gpt-oss-20b
+CLI-029,ok,baixo,Nao caracterizada,0,operacoes_do_dia > historico_cliente,2,3,5931,1078,61.45,0.004351,openai/gpt-oss-20b
+CLI-017,falha_validacao,,,0,operacoes_do_dia > historico_cliente,2,3,5929,687,38.13,0.004041,openai/gpt-oss-20b
+CLI-030,erro_api,,,0,historico_cliente,1,2,1616,177,20.81,0.001093,openai/gpt-oss-20b

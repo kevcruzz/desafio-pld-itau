@@ -1,17 +1,32 @@
 {
   "cliente_id": "CLI-005",
-  "status": "erro_api",
-  "nivel_risco": null,
-  "tipologia_suspeita": null,
+  "status": "ok",
+  "nivel_risco": "medio",
+  "tipologia_suspeita": "Incompatibilidade com o perfil",
   "red_flags": [],
-  "justificativa": null,
-  "ferramentas_chamadas": [],
-  "trajetoria": [],
-  "n_iteracoes": 1,
-  "tokens_entrada": 0,
-  "tokens_saida": 0,
-  "latencia_s": 0.11217620000024908,
-  "custo_estimado_usd": 0.0,
-  "modelo": "openai/gpt-oss-120b",
-  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198876, Requested 2173. Please try again in 7m33.167999999s. Need more tokens? Upgrade to "
+  "justificativa": "O cliente CLI-005 possui 11 operações no período, com ticket médio de R$5.885,7. Duas operações foram sinalizadas pela regra de valor atípico: OP-00049 (R$11.988,17 via espécie) e OP-00043 (R$30.743,97 via cartão). O valor de OP-00043 excede em 5,7 vezes o ticket médio e é o maior valor do histórico, enquanto OP-00049 está apenas 1,1 vezes acima do limite de R$10.720,9. Não há evidências de fracionamento, uso intensivo de espécie em múltiplas transações ou outras anomalias. Assim, a sinalização parece ser um falso positivo, mas a operação de R$30.743,97 pode indicar incompatibilidade com o perfil habitual do cliente. Recomenda-se observar a origem e finalidade da transação de pagamento e a natureza do recebimento em espécie.",
+  "ferramentas_chamadas": [
+    "historico_cliente"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-005"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "emitir_parecer",
+      "argumentos": {}
+    }
+  ],
+  "n_iteracoes": 2,
+  "tokens_entrada": 3674,
+  "tokens_saida": 1892,
+  "latencia_s": 76.33271349999995,
+  "custo_estimado_usd": 0.003662,
+  "modelo": "openai/gpt-oss-20b",
+  "erro": null
 }

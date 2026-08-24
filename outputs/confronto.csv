@@ -1,0 +1,7 @@
+cliente_id,flags_regra1,flags_regra2,volume_brl,n_operacoes,risco_esperado_pelas_regras,risco_atribuido_pelo_agente,tipologia,n_red_flags,concorda,distancia,adjacente,direcao,ferramentas
+CLI-014,0,3,80629.99,11,alto,baixo,Nao caracterizada,0,False,-2,False,agente MAIS brando,historico_cliente > operacoes_do_dia > operacoes_do_dia > operacoes_do_dia
+CLI-026,0,2,54729.28,12,alto,baixo,Nao caracterizada,0,False,-2,False,agente MAIS brando,historico_cliente > operacoes_do_dia
+CLI-028,0,2,88750.8,12,alto,baixo,Nao caracterizada,0,False,-2,False,agente MAIS brando,historico_cliente > operacoes_do_dia
+CLI-029,1,0,191385.77,16,alto,baixo,Nao caracterizada,0,False,-2,False,agente MAIS brando,operacoes_do_dia > historico_cliente
+CLI-001,0,2,47947.81,10,alto,medio,Uso intensivo de espécie,0,False,-1,True,agente MAIS brando,historico_cliente > perfil_canal
+CLI-005,0,2,64742.66,11,alto,medio,Incompatibilidade com o perfil,0,False,-1,True,agente MAIS brando,historico_cliente

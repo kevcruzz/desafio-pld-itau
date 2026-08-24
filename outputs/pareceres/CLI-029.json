@@ -1,17 +1,41 @@
 {
   "cliente_id": "CLI-029",
-  "status": "erro_api",
-  "nivel_risco": null,
-  "tipologia_suspeita": null,
+  "status": "ok",
+  "nivel_risco": "baixo",
+  "tipologia_suspeita": "Nao caracterizada",
   "red_flags": [],
-  "justificativa": null,
-  "ferramentas_chamadas": [],
-  "trajetoria": [],
-  "n_iteracoes": 1,
-  "tokens_entrada": 0,
-  "tokens_saida": 0,
-  "latencia_s": 0.11054129999865836,
-  "custo_estimado_usd": 0.0,
-  "modelo": "openai/gpt-oss-120b",
-  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198874, Requested 2303. Please try again in 8m28.463999999s. Need more tokens? Upgrade to "
+  "justificativa": "O cliente realizou 4 operações no dia 2026-05-26, totalizando R$ 71.297,68, com valores entre R$ 14.326,29 e R$ 19.418,96. Esses valores estão dentro da média de ticket do cliente (R$ 11.961,61) e não ultrapassam o maior valor histórico (R$ 48.045,64). As operações foram para 4 contrapartes distintas e não há evidência de estruturação coordenada ou fracionamento deliberado. A regra de fracionamento foi acionada apenas neste dia, sem ocorrências semelhantes em outros dias do período analisado. Assim, a sinalização não se sustenta na investigação.",
+  "ferramentas_chamadas": [
+    "operacoes_do_dia",
+    "historico_cliente"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-029",
+        "data": "2026-05-26"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-029"
+      }
+    },
+    {
+      "iteracao": 3,
+      "ferramenta": "emitir_parecer",
+      "argumentos": {}
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 5931,
+  "tokens_saida": 1078,
+  "latencia_s": 61.45007760000044,
+  "custo_estimado_usd": 0.004351,
+  "modelo": "openai/gpt-oss-20b",
+  "erro": null
 }

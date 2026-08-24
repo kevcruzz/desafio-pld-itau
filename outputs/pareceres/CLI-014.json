@@ -4,9 +4,12 @@
   "nivel_risco": "baixo",
   "tipologia_suspeita": "Nao caracterizada",
   "red_flags": [],
-  "justificativa": "Os três valores acima do limite (R$ 23,640.97, R$ 13,660.65 e R$ 21,064.59) correspondem às maiores operações do cliente, mas estão dentro do histórico de picos já observados (maior operação = R$ 23,640.97). Não há concentração temporal (operam em dias diferentes) nem recorrência de contrapartes, e a distribuição por canal (pix e ted) segue o padrão geral do cliente. Não há indícios de fracionamento ou incompatibilidade com o perfil.",
+  "justificativa": "O cliente realizou três operações acima do limite de valor atípico, porém cada uma ocorreu em dias distintos, para contrapartes diferentes, em canais e tipos distintos, sem sinais de fracionamento ou estruturação coordenada. Não há evidências de padrão de movimentação que sugira tentativa de lavagem de dinheiro. Assim, a sinalização parece ser um falso positivo gerado pela regra de valor atípico.",
   "ferramentas_chamadas": [
-    "historico_cliente"
+    "historico_cliente",
+    "operacoes_do_dia",
+    "operacoes_do_dia",
+    "operacoes_do_dia"
   ],
   "trajetoria": [
     {
@@ -18,15 +21,39 @@
     },
     {
       "iteracao": 2,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-014",
+        "data": "2026-03-05"
+      }
+    },
+    {
+      "iteracao": 3,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-014",
+        "data": "2026-03-06"
+      }
+    },
+    {
+      "iteracao": 4,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-014",
+        "data": "2026-03-24"
+      }
+    },
+    {
+      "iteracao": 5,
       "ferramenta": "emitir_parecer",
       "argumentos": {}
     }
   ],
-  "n_iteracoes": 2,
-  "tokens_entrada": 3709,
-  "tokens_saida": 795,
-  "latencia_s": 9.064545299999736,
-  "custo_estimado_usd": 0.002816,
-  "modelo": "openai/gpt-oss-120b",
+  "n_iteracoes": 5,
+  "tokens_entrada": 11159,
+  "tokens_saida": 2436,
+  "latencia_s": 64.49908759999926,
+  "custo_estimado_usd": 0.008508,
+  "modelo": "openai/gpt-oss-20b",
   "erro": null
 }

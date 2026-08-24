@@ -1,17 +1,41 @@
 {
   "cliente_id": "CLI-026",
-  "status": "erro_api",
-  "nivel_risco": null,
-  "tipologia_suspeita": null,
+  "status": "ok",
+  "nivel_risco": "baixo",
+  "tipologia_suspeita": "Nao caracterizada",
   "red_flags": [],
-  "justificativa": null,
-  "ferramentas_chamadas": [],
-  "trajetoria": [],
-  "n_iteracoes": 1,
-  "tokens_entrada": 0,
-  "tokens_saida": 0,
-  "latencia_s": 0.10724099999970349,
-  "custo_estimado_usd": 0.0,
-  "modelo": "openai/gpt-oss-120b",
-  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198875, Requested 2173. Please try again in 7m32.736s. Need more tokens? Upgrade to Dev Ti"
+  "justificativa": "Os dois valores que excederam o limite de R$10.164,65 foram isolados, com datas e contrapartes distintas, e não indicam fracionamento nem padrão de movimentação atípico. O cliente possui 12 operações no período, com ticket médio de R$4.560,77, o que coloca esses valores em 4,7 e 2,7 vezes o ticket médio, mas ainda dentro de um intervalo que pode ser legítimo. Assim, a regra de valor atípico não se sustenta como indicativo de PLD.",
+  "ferramentas_chamadas": [
+    "historico_cliente",
+    "operacoes_do_dia"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-026"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-026",
+        "data": "2026-05-17"
+      }
+    },
+    {
+      "iteracao": 3,
+      "ferramenta": "emitir_parecer",
+      "argumentos": {}
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 5958,
+  "tokens_saida": 2144,
+  "latencia_s": 62.18885269999919,
+  "custo_estimado_usd": 0.005209,
+  "modelo": "openai/gpt-oss-20b",
+  "erro": null
 }

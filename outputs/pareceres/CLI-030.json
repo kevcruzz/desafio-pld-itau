@@ -5,13 +5,23 @@
   "tipologia_suspeita": null,
   "red_flags": [],
   "justificativa": null,
-  "ferramentas_chamadas": [],
-  "trajetoria": [],
-  "n_iteracoes": 1,
-  "tokens_entrada": 0,
-  "tokens_saida": 0,
-  "latencia_s": 0.0890746000004583,
-  "custo_estimado_usd": 0.0,
-  "modelo": "openai/gpt-oss-120b",
-  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198872, Requested 2312. Please try again in 8m31.488s. Need more tokens? Upgrade to Dev Ti"
+  "ferramentas_chamadas": [
+    "historico_cliente"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-030"
+      }
+    }
+  ],
+  "n_iteracoes": 2,
+  "tokens_entrada": 1616,
+  "tokens_saida": 177,
+  "latencia_s": 20.80542119999882,
+  "custo_estimado_usd": 0.001093,
+  "modelo": "openai/gpt-oss-20b",
+  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 4221, Requested 5014. Please try again in 9.2625s. Need more tokens? Upgrade to Dev Tier t"
 }

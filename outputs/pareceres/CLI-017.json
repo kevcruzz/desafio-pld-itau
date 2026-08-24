@@ -1,17 +1,36 @@
 {
   "cliente_id": "CLI-017",
-  "status": "erro_api",
+  "status": "falha_validacao",
   "nivel_risco": null,
   "tipologia_suspeita": null,
   "red_flags": [],
   "justificativa": null,
-  "ferramentas_chamadas": [],
-  "trajetoria": [],
-  "n_iteracoes": 1,
-  "tokens_entrada": 0,
-  "tokens_saida": 0,
-  "latencia_s": 0.12417470000036701,
-  "custo_estimado_usd": 0.0,
-  "modelo": "openai/gpt-oss-120b",
-  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198873, Requested 2303. Please try again in 8m28.032s. Need more tokens? Upgrade to Dev Ti"
+  "ferramentas_chamadas": [
+    "operacoes_do_dia",
+    "historico_cliente"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-017",
+        "data": "2026-03-08"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-017"
+      }
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 5929,
+  "tokens_saida": 687,
+  "latencia_s": 38.133153000000675,
+  "custo_estimado_usd": 0.004041,
+  "modelo": "openai/gpt-oss-20b",
+  "erro": "ValidationError: [{'type': 'json_invalid', 'loc': (), 'msg': 'Invalid JSON: EOF while parsing a value at line 1 column 0', 'input': '', 'ctx': {'error': 'EOF while parsing a value at line 1 column 0'}, 'url': 'https://errors.pydantic.dev/2.13/v/json_invalid'}]"
 }
