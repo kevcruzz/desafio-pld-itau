@@ -136,7 +136,7 @@ def limpar(df: pd.DataFrame, taxa_usd_brl: float) -> pd.DataFrame:
     """
     limpo = df.drop_duplicates().copy()
 
-    limpo["valor_brl"] = limpo["valor"].where(
+    limpo["valor_brl"] = limpo["valor"].astype("float64").where(
         limpo["moeda"] != "USD",
         limpo["valor"] * taxa_usd_brl,
     )

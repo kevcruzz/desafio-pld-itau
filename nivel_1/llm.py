@@ -35,10 +35,10 @@ CACHE_DIR = Path(__file__).resolve().parent.parent / ".cache_llm"
 # Preço público do llama-3.3-70b-versatile (USD por milhão de tokens).
 # Usamos camada gratuita, então isto é ESTIMATIVA do que custaria em
 # produção — declarado como tal para não confundir com gasto real.
-PRECO_USD_POR_MILHAO = {"entrada": 0.59, "saida": 0.79}
+PRECO_USD_POR_MILHAO = {"entrada": 0.15, "saida": 0.60}
 
 # Intervalo mínimo entre chamadas não cacheadas, para não bater no TPM.
-INTERVALO_MINIMO_S = 6.0
+INTERVALO_MINIMO_S = 20.0
 _ultima_chamada = 0.0
 
 
@@ -205,7 +205,7 @@ def chamar(
                 messages=mensagens,
                 temperature=temperatura,
                 response_format={"type": "json_object"},
-                max_tokens=1200,
+                max_tokens=3000,
             )
             _ultima_chamada = time.perf_counter()
         except Exception as e:  # 429, timeout, indisponibilidade
