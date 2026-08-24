@@ -1,0 +1,22 @@
+# Segredos - NUNCA commitar
+.env
+*.key
+credentials.json
+
+# Cache de respostas da LLM (regeneravel)
+.cache_llm/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Jupyter - checkpoints sim, saidas do notebook NAO
+.ipynb_checkpoints/
+
+# SO / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

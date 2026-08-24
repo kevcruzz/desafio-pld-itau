@@ -1,0 +1,7 @@
+pandas>=2.3.3,<3.0
+pydantic>=2.10,<3.0
+python-dotenv>=1.0
+groq>=0.13
+jupyter>=1.1
+notebook>=7.3
+tabulate>=0.9

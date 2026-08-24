@@ -1,0 +1,225 @@
+{
+  "taxa_cambio_usd_brl": 5.4,
+  "operacoes": [
+    {
+      "id": "OP-0001",
+      "cliente_id": "CLI-A-1",
+      "data": "2026-03-09",
+      "valor": 18100,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Alfa Comercio LTDA",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0002",
+      "cliente_id": "CLI-A-1",
+      "data": "2026-03-09",
+      "valor": 17300,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Alfa Comercio LTDA",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0003",
+      "cliente_id": "CLI-A-1",
+      "data": "2026-03-09",
+      "valor": 18800,
+      "moeda": "BRL",
+      "canal": "ted",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Beta Servicos ME",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0004",
+      "cliente_id": "CLI-A-1",
+      "data": "2026-03-21",
+      "valor": 3300,
+      "moeda": "BRL",
+      "canal": "boleto",
+      "tipo": "pagamento",
+      "contraparte": "Gama Distribuidora",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0005",
+      "cliente_id": "CLI-A-2",
+      "data": "2026-03-14",
+      "valor": 25900,
+      "moeda": "BRL",
+      "canal": "ted",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Delta Transportes",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0006",
+      "cliente_id": "CLI-A-2",
+      "data": "2026-03-14",
+      "valor": 27000,
+      "moeda": "BRL",
+      "canal": "ted",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Delta Transportes",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0007",
+      "cliente_id": "CLI-A-3",
+      "data": "2026-03-05",
+      "valor": 17200,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Epsilon Consultoria",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0008",
+      "cliente_id": "CLI-A-3",
+      "data": "2026-03-05",
+      "valor": 15200,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Epsilon Consultoria",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0009",
+      "cliente_id": "CLI-A-3",
+      "data": "2026-03-05",
+      "valor": 16100,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Zeta Importacao",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0007",
+      "cliente_id": "CLI-A-3",
+      "data": "2026-03-05",
+      "valor": 17200,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Epsilon Consultoria",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0010",
+      "cliente_id": "CLI-A-4",
+      "data": "2026-03-03",
+      "valor": 3800,
+      "moeda": "BRL",
+      "canal": "cartao",
+      "tipo": "pagamento",
+      "contraparte": "Alfa Comercio LTDA",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0011",
+      "cliente_id": "CLI-A-4",
+      "data": "2026-03-11",
+      "valor": 5100,
+      "moeda": "BRL",
+      "canal": "boleto",
+      "tipo": "pagamento",
+      "contraparte": "Beta Servicos ME",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0012",
+      "cliente_id": "CLI-A-4",
+      "data": "2026-03-18",
+      "valor": 5800,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Gama Distribuidora",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0013",
+      "cliente_id": "CLI-A-4",
+      "data": "2026-03-24",
+      "valor": 12000,
+      "moeda": "USD",
+      "canal": "ted",
+      "tipo": "transferencia_recebida",
+      "contraparte": "Zeta Importacao",
+      "observacao": "remessa internacional"
+    },
+    {
+      "id": "OP-0014",
+      "cliente_id": "CLI-A-5",
+      "data": "2026-03-07",
+      "valor": 2900,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_recebida",
+      "contraparte": "Delta Transportes",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0015",
+      "cliente_id": "CLI-A-5",
+      "data": "2026-03-16",
+      "valor": 7000,
+      "moeda": "BRL",
+      "canal": "ted",
+      "tipo": "transferencia_recebida",
+      "contraparte": "Epsilon Consultoria",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0016",
+      "cliente_id": "CLI-A-5",
+      "data": "2026-03-26",
+      "valor": 2700,
+      "moeda": "BRL",
+      "canal": "boleto",
+      "tipo": "pagamento",
+      "contraparte": "Beta Servicos ME",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0017",
+      "cliente_id": "CLI-A-5",
+      "data": null,
+      "valor": 4300,
+      "moeda": "BRL",
+      "canal": "especie",
+      "tipo": "deposito",
+      "contraparte": "Gama Distribuidora",
+      "observacao": "data nao capturada pelo sistema"
+    },
+    {
+      "id": "OP-0018",
+      "cliente_id": "CLI-A-6",
+      "data": "2026-03-12",
+      "valor": 8800,
+      "moeda": "BRL",
+      "canal": "pix",
+      "tipo": "transferencia_enviada",
+      "contraparte": "Alfa Comercio LTDA",
+      "observacao": ""
+    },
+    {
+      "id": "OP-0019",
+      "cliente_id": "CLI-A-6",
+      "data": "2026-03-28",
+      "valor": 1400,
+      "moeda": "BRL",
+      "canal": "cartao",
+      "tipo": "pagamento",
+      "contraparte": "Delta Transportes",
+      "observacao": ""
+    }
+  ]
+}
