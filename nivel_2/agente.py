@@ -74,9 +74,9 @@ NIVEIS DE RISCO
 - medio: merece observacao, sem elemento conclusivo
 - alto: elemento objetivo que justifica analise humana prioritaria
 
-Ao concluir, responda EXCLUSIVAMENTE com um objeto JSON, sem texto antes ou depois:
-{"nivel_risco": "...", "tipologia_suspeita": "...", "red_flags": ["...", "..."], "justificativa": "..."}
-O campo red_flags deve ser um ARRAY JSON de strings, nunca um texto unico."""
+COMO CONCLUIR
+Quando tiver elementos suficientes, chame a ferramenta emitir_parecer com o resultado.
+ATENCAO: emitir_parecer e uma FERRAMENTA como as outras, e a unica forma de encerrar o caso. Chame-a pelo nome exato 'emitir_parecer'. Nao escreva o parecer como texto livre e nao invente outra ferramenta para entrega-lo."""
 
 
 @dataclass
@@ -116,6 +116,49 @@ class ResultadoAgente:
             "custo_estimado_usd": self.custo_estimado_usd,
             "modelo": self.modelo,
         }
+
+
+def _recuperar_de_erro(texto_erro: str) -> str | None:
+    """Extrai o objeto de argumentos de dentro de um erro tool_use_failed.
+
+    O formato do erro traz: 'failed_generation': '{"name": "JSON",
+    "arguments": {...o parecer...}}'. Queremos o conteudo de "arguments".
+    """
+    if "failed_generation" not in texto_erro:
+        return None
+
+    marcador = '"arguments":'
+    pos = texto_erro.find(marcador)
+    if pos == -1:
+        return None
+
+    trecho = texto_erro[pos + len(marcador):]
+    inicio = trecho.find("{")
+    if inicio == -1:
+        return None
+
+    # Percorre contando chaves para achar o fechamento correspondente,
+    # ignorando chaves dentro de strings.
+    profundidade, dentro_de_string, escapado = 0, False, False
+    for i, ch in enumerate(trecho[inicio:], start=inicio):
+        if escapado:
+            escapado = False
+            continue
+        if ch == "\\":
+            escapado = True
+            continue
+        if ch == '"':
+            dentro_de_string = not dentro_de_string
+            continue
+        if dentro_de_string:
+            continue
+        if ch == "{":
+            profundidade += 1
+        elif ch == "}":
+            profundidade -= 1
+            if profundidade == 0:
+                return trecho[inicio:i + 1].replace("\\n", " ").replace('\\"', '"')
+    return None
 
 
 def _contexto_do_caso(df, cliente_id: str) -> str:
@@ -173,6 +216,8 @@ def analisar_cliente(cliente_id: str, df=None, verbose: bool = True) -> Resultad
 
     inicio = time.perf_counter()
 
+    concluiu = False
+
     for iteracao in range(1, MAX_ITERACOES + 1):
         res.n_iteracoes = iteracao
 
@@ -190,6 +235,29 @@ def analisar_cliente(cliente_id: str, df=None, verbose: bool = True) -> Resultad
                 max_tokens=3000,
             )
         except Exception as e:
+            # O gpt-oss-120b as vezes emite o parecer como chamada de uma
+            # ferramenta inexistente chamada "JSON" em vez de usar
+            # emitir_parecer. O Groq rejeita com 400, MAS devolve o que o
+            # modelo tentou gerar no campo failed_generation — e ali dentro
+            # esta o parecer completo e bem formado.
+            #
+            # Recuperar dai nao e gambiarra: o modelo concluiu a analise
+            # corretamente e so errou o envelope. Descartar o trabalho por
+            # causa do envelope seria perder conteudo valido. A saida
+            # recuperada passa pelo MESMO validador, entao o vocabulario
+            # fechado e a regra de coerencia continuam valendo — nada entra
+            # sem validacao.
+            recuperado = _recuperar_de_erro(str(e))
+            if recuperado:
+                parecer, erro = llm.validar(recuperado, llm.ParecerPLD)
+                if parecer:
+                    res.status = "ok_recuperado"
+                    res.nivel_risco = parecer.nivel_risco
+                    res.tipologia_suspeita = parecer.tipologia_suspeita
+                    res.red_flags = parecer.red_flags
+                    res.justificativa = parecer.justificativa
+                    res.erro = "parecer recuperado de failed_generation (tool_use_failed)"
+                    break
             res.status = "erro_api"
             res.erro = str(e)[:300]
             break
@@ -226,7 +294,29 @@ def analisar_cliente(cliente_id: str, df=None, verbose: bool = True) -> Resultad
                     args = {}
 
                 if verbose:
-                    print(f"    [{iteracao}] {nome}({args})")
+                    print(f"    [{iteracao}] {nome}({args if nome != 'emitir_parecer' else '...'})")
+
+                # emitir_parecer nao consulta a base: encerra o caso.
+                # Passa pelo mesmo validador do Nivel 1, entao o vocabulario
+                # fechado e a regra de coerencia continuam valendo.
+                if nome == "emitir_parecer":
+                    parecer, erro = llm.validar(
+                        json.dumps(args, ensure_ascii=False), llm.ParecerPLD
+                    )
+                    if parecer:
+                        res.status = "ok"
+                        res.nivel_risco = parecer.nivel_risco
+                        res.tipologia_suspeita = parecer.tipologia_suspeita
+                        res.red_flags = parecer.red_flags
+                        res.justificativa = parecer.justificativa
+                    else:
+                        res.status = "falha_validacao"
+                        res.erro = erro
+                    res.trajetoria.append(
+                        {"iteracao": iteracao, "ferramenta": nome, "argumentos": {}}
+                    )
+                    concluiu = True
+                    break
 
                 funcao = tools.REGISTRO.get(nome)
                 if funcao is None:
@@ -248,6 +338,9 @@ def analisar_cliente(cliente_id: str, df=None, verbose: bool = True) -> Resultad
                         "content": json.dumps(saida, ensure_ascii=False, default=str),
                     }
                 )
+
+            if concluiu:
+                break
             continue
 
         # Sem tool call: e a conclusao
@@ -300,7 +393,17 @@ def rodar_lote(top: int = 10, verbose: bool = True) -> list[ResultadoAgente]:
     (saida / "pareceres").mkdir(exist_ok=True)
 
     for r in resultados:
-        (saida / "pareceres" / f"{r.cliente_id}.json").write_text(
+        destino = saida / "pareceres" / f"{r.cliente_id}.json"
+        # Nao sobrescreve parecer valido com resultado pior. Se a execucao
+        # anterior concluiu e esta falhou (rate limit, erro de envelope),
+        # o registro bom permanece — perder analise ja feita por causa de
+        # uma falha de infraestrutura seria desperdicio.
+        if destino.exists() and not r.status.startswith("ok"):
+            anterior = json.loads(destino.read_text(encoding="utf-8"))
+            if str(anterior.get("status", "")).startswith("ok"):
+                print(f"    (mantido parecer anterior de {r.cliente_id})")
+                continue
+        destino.write_text(
             json.dumps(asdict(r), indent=2, ensure_ascii=False), encoding="utf-8"
         )
 

@@ -222,6 +222,57 @@ FERRAMENTAS_SCHEMA = [
     },
 ]
 
+FERRAMENTAS_SCHEMA.append(
+    {
+        "type": "function",
+        "function": {
+            "name": "emitir_parecer",
+            "description": (
+                "Encerra a investigacao e registra o parecer final. Chame esta "
+                "funcao QUANDO E SOMENTE QUANDO ja tiver consultado as "
+                "ferramentas necessarias e formado juizo sobre o caso. E a "
+                "unica forma de concluir — nao escreva o parecer como texto."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "nivel_risco": {
+                        "type": "string",
+                        "enum": ["baixo", "medio", "alto"],
+                        "description": (
+                            "baixo = investigacao nao sustentou a sinalizacao da regra; "
+                            "medio = merece observacao sem elemento conclusivo; "
+                            "alto = elemento objetivo que justifica analise prioritaria"
+                        ),
+                    },
+                    "tipologia_suspeita": {
+                        "type": "string",
+                        "description": "Nome da tipologia de referencia, ou 'Nao caracterizada'",
+                    },
+                    "red_flags": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": (
+                            "Indicios, cada um citando um dado visto nas ferramentas. "
+                            "Lista VAZIA e resposta valida e esperada quando a "
+                            "investigacao nao encontrou indicio — nao invente indicio "
+                            "para preencher. Obrigatoria apenas se o risco for alto."
+                        ),
+                    },
+                    "justificativa": {
+                        "type": "string",
+                        "description": (
+                            "3 a 5 frases: o que os indicadores mostram, o que falta "
+                            "para concluir, e o que o analista humano deve verificar"
+                        ),
+                    },
+                },
+                "required": ["nivel_risco", "tipologia_suspeita", "red_flags", "justificativa"],
+            },
+        },
+    }
+)
+
 REGISTRO = {
     "historico_cliente": historico_cliente,
     "operacoes_do_dia": operacoes_do_dia,

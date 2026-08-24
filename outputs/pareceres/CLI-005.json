@@ -1,35 +1,17 @@
 {
   "cliente_id": "CLI-005",
-  "status": "ok",
-  "nivel_risco": "baixo",
-  "tipologia_suspeita": "Nao caracterizada",
+  "status": "erro_api",
+  "nivel_risco": null,
+  "tipologia_suspeita": null,
   "red_flags": [],
-  "justificativa": "As duas operações sinalizadas (OP-00049 de R$11,988.17 em espécie e OP-00043 de R$30,743.97 em cartão) superam o limite de R$10,720.9 usado pela regra de valor atípico, porém o histórico do cliente mostra ticket médio de R$5,885.70 e ticket mediano de R$2,144.18, com uso predominante de cartão (48% do volume) e espécie dentro da média da base (desvio -2.3%). Não há padrão de fracionamento, nem concentração temporal, nem uso excessivo de espécie. As operações são isoladas em datas distintas e não indicam interposição ou incompatibilidade de perfil. Portanto a sinalização não se sustenta e o risco é considerado baixo.",
-  "ferramentas_chamadas": [
-    "historico_cliente",
-    "perfil_canal"
-  ],
-  "trajetoria": [
-    {
-      "iteracao": 1,
-      "ferramenta": "historico_cliente",
-      "argumentos": {
-        "cliente_id": "CLI-005"
-      }
-    },
-    {
-      "iteracao": 2,
-      "ferramenta": "perfil_canal",
-      "argumentos": {
-        "cliente_id": "CLI-005"
-      }
-    }
-  ],
-  "n_iteracoes": 3,
-  "tokens_entrada": 5429,
-  "tokens_saida": 1367,
-  "latencia_s": 42.38821830000052,
-  "custo_estimado_usd": 0.004283,
+  "justificativa": null,
+  "ferramentas_chamadas": [],
+  "trajetoria": [],
+  "n_iteracoes": 1,
+  "tokens_entrada": 0,
+  "tokens_saida": 0,
+  "latencia_s": 0.11217620000024908,
+  "custo_estimado_usd": 0.0,
   "modelo": "openai/gpt-oss-120b",
-  "erro": null
+  "erro": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kw07vqjyfdwrjmv2a8bem7y5` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198876, Requested 2173. Please try again in 7m33.167999999s. Need more tokens? Upgrade to "
 }

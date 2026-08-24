@@ -3,17 +3,10 @@
   "status": "ok",
   "nivel_risco": "baixo",
   "tipologia_suspeita": "Nao caracterizada",
-  "red_flags": [
-    "Operação OP-00133 (23.640,97 BRL) via PIX em 2026-03-06, valor acima do limite de 11.542,05 BRL",
-    "Operação OP-00129 (13.660,65 BRL) via PIX em 2026-03-05, valor acima do limite de 11.542,05 BRL",
-    "Operação OP-00315 (21.064,59 BRL) via TED em 2026-03-24, valor acima do limite de 11.542,05 BRL"
-  ],
-  "justificativa": "O cliente realizou 11 operações no período analisado, totalizando R$ 80.629,99, com ticket médio de R$ 7.330,00 e ticket mediano de R$ 2.308,41. As três operações sinalizadas são isoladas, ocorrendo em dias diferentes, com contrapartes distintas e canais (PIX ou TED) que não apresentam concentração anômala (PIX 4/11, TED 4/11). O maior valor histórico do cliente é R$ 23.640,97, portanto os valores acima do limite de R$ 11.542,05 não são fora do padrão de comportamento do cliente. Não há indícios de fracionamento, uso intensivo de espécie, interposição de pessoa ou incompatibilidade significativa com o perfil, já que o volume total e a frequência de operações são compatíveis com a atividade do cliente. Assim, a sinalização baseada apenas no valor absoluto não se sustenta, justificando risco baixo.",
+  "red_flags": [],
+  "justificativa": "Os três valores acima do limite (R$ 23,640.97, R$ 13,660.65 e R$ 21,064.59) correspondem às maiores operações do cliente, mas estão dentro do histórico de picos já observados (maior operação = R$ 23,640.97). Não há concentração temporal (operam em dias diferentes) nem recorrência de contrapartes, e a distribuição por canal (pix e ted) segue o padrão geral do cliente. Não há indícios de fracionamento ou incompatibilidade com o perfil.",
   "ferramentas_chamadas": [
-    "historico_cliente",
-    "operacoes_do_dia",
-    "operacoes_do_dia",
-    "operacoes_do_dia"
+    "historico_cliente"
   ],
   "trajetoria": [
     {
@@ -25,34 +18,15 @@
     },
     {
       "iteracao": 2,
-      "ferramenta": "operacoes_do_dia",
-      "argumentos": {
-        "cliente_id": "CLI-014",
-        "data": "2026-03-06"
-      }
-    },
-    {
-      "iteracao": 3,
-      "ferramenta": "operacoes_do_dia",
-      "argumentos": {
-        "cliente_id": "CLI-014",
-        "data": "2026-03-05"
-      }
-    },
-    {
-      "iteracao": 4,
-      "ferramenta": "operacoes_do_dia",
-      "argumentos": {
-        "cliente_id": "CLI-014",
-        "data": "2026-03-24"
-      }
+      "ferramenta": "emitir_parecer",
+      "argumentos": {}
     }
   ],
-  "n_iteracoes": 5,
-  "tokens_entrada": 9920,
-  "tokens_saida": 1996,
-  "latencia_s": 80.98646499999995,
-  "custo_estimado_usd": 0.00743,
+  "n_iteracoes": 2,
+  "tokens_entrada": 3709,
+  "tokens_saida": 795,
+  "latencia_s": 9.064545299999736,
+  "custo_estimado_usd": 0.002816,
   "modelo": "openai/gpt-oss-120b",
   "erro": null
 }
