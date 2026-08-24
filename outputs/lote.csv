@@ -1,0 +1,11 @@
+cliente_id,status,nivel_risco,tipologia_suspeita,n_red_flags,ferramentas_chamadas,n_chamadas_ferramenta,n_iteracoes,tokens_entrada,tokens_saida,latencia_s,custo_estimado_usd,modelo
+CLI-014,ok,baixo,Nao caracterizada,3,historico_cliente > operacoes_do_dia > operacoes_do_dia > operacoes_do_dia,4,5,9920,1996,80.99,0.00743,openai/gpt-oss-120b
+CLI-023,ok,alto,Incompatibilidade com o perfil,3,historico_cliente > perfil_canal,2,3,5333,1589,41.41,0.004402,openai/gpt-oss-120b
+CLI-028,erro_api,,,0,historico_cliente > operacoes_do_dia,2,3,3164,470,46.9,0.002238,openai/gpt-oss-120b
+CLI-013,ok,baixo,Nao caracterizada,0,historico_cliente > operacoes_do_dia,2,3,5212,1524,39.28,0.004279,openai/gpt-oss-120b
+CLI-005,ok,baixo,Nao caracterizada,0,historico_cliente > perfil_canal,2,3,5429,1367,42.39,0.004283,openai/gpt-oss-120b
+CLI-026,ok,baixo,Nao caracterizada,2,historico_cliente > perfil_canal,2,3,5403,1926,53.83,0.004709,openai/gpt-oss-120b
+CLI-001,erro_api,,,0,historico_cliente > operacoes_do_dia > perfil_canal,3,4,5131,782,62.31,0.003645,openai/gpt-oss-120b
+CLI-029,ok,baixo,Nao caracterizada,0,operacoes_do_dia > historico_cliente,2,3,5190,991,30.67,0.003845,openai/gpt-oss-120b
+CLI-017,erro_api,,,0,operacoes_do_dia > historico_cliente,2,3,3102,326,34.32,0.002088,openai/gpt-oss-120b
+CLI-030,erro_api,,,0,historico_cliente > operacoes_do_dia,2,3,3136,721,46.12,0.00242,openai/gpt-oss-120b

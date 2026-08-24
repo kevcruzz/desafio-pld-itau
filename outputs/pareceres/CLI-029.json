@@ -1,0 +1,36 @@
+{
+  "cliente_id": "CLI-029",
+  "status": "ok",
+  "nivel_risco": "baixo",
+  "tipologia_suspeita": "Nao caracterizada",
+  "red_flags": [],
+  "justificativa": "No dia 2026-05-26 foram realizadas 4 operações totalizando R$71,297.68, com valores entre R$14,326.29 e R$19,418.96, distribuídas em canais TED e PIX e destinadas a 4 contrapartes distintas. O cliente possui histórico de 16 operações no período, ticket médio de R$11,961.61 e já realizou operação maior (R$48,045.64). Não há recorrência de contrapartes, nem valores abaixo de limite de reporte, nem padrão de múltiplas operações para a mesma finalidade ou destino. Assim, a sinalização de fracionamento não se sustenta e o risco é considerado baixo.",
+  "ferramentas_chamadas": [
+    "operacoes_do_dia",
+    "historico_cliente"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-029",
+        "data": "2026-05-26"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-029"
+      }
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 5190,
+  "tokens_saida": 991,
+  "latencia_s": 30.665576999999757,
+  "custo_estimado_usd": 0.003845,
+  "modelo": "openai/gpt-oss-120b",
+  "erro": null
+}

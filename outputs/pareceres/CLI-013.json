@@ -1,0 +1,36 @@
+{
+  "cliente_id": "CLI-013",
+  "status": "ok",
+  "nivel_risco": "baixo",
+  "tipologia_suspeita": "Nao caracterizada",
+  "red_flags": [],
+  "justificativa": "As duas operações sinalizadas (R$ 28.487,76 e R$ 26.754,23) foram realizadas via TED no mesmo dia, mas representam apenas 68% do volume total do cliente, que movimentou R$ 81.730,99 em 10 operações. Não há indícios de fracionamento (são apenas duas operações de alto valor), uso intensivo de espécie, remessa internacional, interposição de pessoa ou padrão de repetição de contrapartes. O canal TED é comum e as contrapartes são empresas distintas, compatíveis com atividade empresarial. Assim, a regra de valor atípico não se sustenta diante do perfil geral do cliente, justificando risco baixo.",
+  "ferramentas_chamadas": [
+    "historico_cliente",
+    "operacoes_do_dia"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-013"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-013",
+        "data": "2026-03-06"
+      }
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 5212,
+  "tokens_saida": 1524,
+  "latencia_s": 39.283406299999115,
+  "custo_estimado_usd": 0.004279,
+  "modelo": "openai/gpt-oss-120b",
+  "erro": null
+}

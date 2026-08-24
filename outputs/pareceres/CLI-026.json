@@ -1,0 +1,38 @@
+{
+  "cliente_id": "CLI-026",
+  "status": "ok",
+  "nivel_risco": "baixo",
+  "tipologia_suspeita": "Nao caracterizada",
+  "red_flags": [
+    "Operação OP-00253 de R$21,261.01 (pix, pagamento) excede o limite de R$10,164.65 definido para valor atípico",
+    "Operação OP-00247 de R$12,518.30 (cartão, saque) excede o limite de R$10,164.65 definido para valor atípico"
+  ],
+  "justificativa": "O cliente possui 12 operações no período analisado, com volume total de R$54,729.28 e ticket médio de R$4,560.77. As duas operações sinalizadas são as maiores da série, representando 61,7% do volume total, mas não há indícios de fracionamento, uso intensivo de espécie, remessa internacional ou interposição de pessoa. A distribuição por canal está alinhada à média da base, exceto por um leve aumento no uso de espécie (+21,2pp), que não indica risco. Não há contrapartes recorrentes nem operações em moeda estrangeira. Assim, apesar de excederem o limite da regra automática, as operações são compatíveis com o perfil de movimentação do cliente e não configuram tipologia suspeita, justificando risco baixo.",
+  "ferramentas_chamadas": [
+    "historico_cliente",
+    "perfil_canal"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-026"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "perfil_canal",
+      "argumentos": {
+        "cliente_id": "CLI-026"
+      }
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 5403,
+  "tokens_saida": 1926,
+  "latencia_s": 53.83101910000005,
+  "custo_estimado_usd": 0.004709,
+  "modelo": "openai/gpt-oss-120b",
+  "erro": null
+}

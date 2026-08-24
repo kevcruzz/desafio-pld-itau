@@ -25,7 +25,7 @@ from typing import Literal, Type, TypeVar
 
 from dotenv import load_dotenv
 from groq import Groq
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
 
 load_dotenv()
 
@@ -35,10 +35,10 @@ CACHE_DIR = Path(__file__).resolve().parent.parent / ".cache_llm"
 # Preço público do llama-3.3-70b-versatile (USD por milhão de tokens).
 # Usamos camada gratuita, então isto é ESTIMATIVA do que custaria em
 # produção — declarado como tal para não confundir com gasto real.
-PRECO_USD_POR_MILHAO = {"entrada": 0.15, "saida": 0.60}
+PRECO_USD_POR_MILHAO = {"entrada": 0.59, "saida": 0.79}
 
 # Intervalo mínimo entre chamadas não cacheadas, para não bater no TPM.
-INTERVALO_MINIMO_S = 20.0
+INTERVALO_MINIMO_S = 6.0
 _ultima_chamada = 0.0
 
 
@@ -53,12 +53,68 @@ class ParecerPLD(BaseModel):
     'altíssimo', 'ALTO' ou 'muito alto', a validação REJEITA em vez de
     aceitar um valor que quebraria a comparação do confronto no Nível 2.
     Vocabulário fechado é o que torna a saída utilizável a jusante.
+
+    `red_flags` aceita lista VAZIA — e essa foi uma correção, não o
+    desenho original. A primeira versão exigia ao menos um item. Na
+    primeira execução do agente sobre CLI-029, o modelo investigou,
+    concluiu que a sinalização da regra não se sustentava e devolveu
+    lista vazia: a validação rejeitou. Ou seja, o schema tornava
+    "não encontrei indício" inexprimível e forçaria o modelo a fabricar
+    suspeita para conseguir responder — exatamente o falso positivo que
+    a triagem deveria evitar. Restrição de schema não é neutra: ela
+    define quais conclusões o sistema consegue representar.
+
+    O que sobrou é uma restrição com significado, no `_coerencia`
+    abaixo: risco ALTO sem nenhum indício citado é incoerente, e aí sim
+    vale rejeitar.
     """
 
     nivel_risco: Literal["baixo", "medio", "alto"]
     tipologia_suspeita: str = Field(min_length=3)
-    red_flags: list[str] = Field(min_length=1)
+    red_flags: list[str] = Field(default_factory=list)
     justificativa: str = Field(min_length=20)
+
+    @field_validator("red_flags", mode="before")
+    @classmethod
+    def _lista_de_string(cls, v):
+        """Normaliza red_flags entregue como string delimitada.
+
+        Falha observada em execucao real com gpt-oss-120b: o modelo achata
+        a lista num unico texto separado por ponto e virgula, por exemplo
+        "op_acima_do_limite; ticket_acima_da_mediana; moeda_estrangeira".
+
+        A coercao e deliberadamente estreita. Ela trata DIFERENCA DE
+        FORMATO onde o conteudo semantico esta integro e a separacao e
+        inequivoca. Nao relaxa o vocabulario de `nivel_risco`, que
+        continua rejeitando valor fora do Literal — la a diferenca seria
+        de SIGNIFICADO, e aceitar "altissimo" quebraria a comparacao do
+        confronto no Nivel 2 sem deixar rastro.
+
+        Normalizar na fronteira custa uma funcao; gastar um retry a cada
+        chamada custa quota, latencia e ainda pode falhar de novo.
+        """
+        if isinstance(v, str):
+            partes = [p.strip() for p in re.split(r"[;\n]+", v) if p.strip()]
+            return partes or [v.strip()]
+        return v
+
+    @model_validator(mode="after")
+    def _coerencia(self):
+        """Risco alto exige ao menos um indicio citado.
+
+        Substitui o `min_length=1` incondicional. A diferenca importa:
+        antes, QUALQUER parecer precisava de red flag, inclusive o que
+        conclui pela ausencia de risco. Agora a exigencia acompanha a
+        conclusao — quem afirma risco alto precisa dizer com base em que,
+        e quem conclui risco baixo pode legitimamente nao ter indicio
+        nenhum a apontar.
+        """
+        if self.nivel_risco == "alto" and not self.red_flags:
+            raise ValueError(
+                "nivel_risco 'alto' exige ao menos uma red flag; "
+                "parecer de risco alto sem indicio citado nao e auditavel"
+            )
+        return self
 
 
 T = TypeVar("T", bound=BaseModel)
@@ -205,7 +261,7 @@ def chamar(
                 messages=mensagens,
                 temperature=temperatura,
                 response_format={"type": "json_object"},
-                max_tokens=3000,
+                max_tokens=1200,
             )
             _ultima_chamada = time.perf_counter()
         except Exception as e:  # 429, timeout, indisponibilidade
@@ -253,8 +309,10 @@ def chamar(
                 "role": "user",
                 "content": (
                     f"A resposta anterior não passou na validação: {erro}\n"
-                    f"Reescreva APENAS o objeto JSON, respeitando exatamente "
-                    f"o schema pedido. Sem texto fora do JSON."
+                    f"Reescreva APENAS o objeto JSON respeitando o schema. "
+                    f"Atencao: red_flags deve ser um ARRAY JSON de strings, "
+                    f'como ["indicio um", "indicio dois"], nunca um texto unico. '
+                    f"Sem texto fora do JSON."
                 ),
             },
         ]

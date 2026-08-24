@@ -1,0 +1,39 @@
+{
+  "cliente_id": "CLI-023",
+  "status": "ok",
+  "nivel_risco": "alto",
+  "tipologia_suspeita": "Incompatibilidade com o perfil",
+  "red_flags": [
+    "Operação de espécie de R$ 41,768.17 representa 28.1% do volume total e excede o limite de R$ 16,205.80",
+    "Operação TED de R$ 65,417.17 representa 51.8% do volume total e excede o limite de R$ 16,205.80",
+    "Concentração de 72% do volume total em duas operações, muito acima do ticket médio (R$ 12,377.92) e mediano (R$ 3,241.16) do cliente"
+  ],
+  "justificativa": "O cliente realizou duas operações que superam significativamente o limite de valor atípico (R$ 16,205.80) e concentram a maior parte do volume movimentado no período (72%). Uma delas foi em espécie, canal de maior risco, embora a participação percentual do canal seja inferior à média da base, o valor absoluto é elevado. Esses fatos indicam incompatibilidade entre o volume e o perfil histórico do cliente, justificando a classificação de risco alto e a necessidade de análise humana aprofundada.",
+  "ferramentas_chamadas": [
+    "historico_cliente",
+    "perfil_canal"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-023"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "perfil_canal",
+      "argumentos": {
+        "cliente_id": "CLI-023"
+      }
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 5333,
+  "tokens_saida": 1589,
+  "latencia_s": 41.40520910000123,
+  "custo_estimado_usd": 0.004402,
+  "modelo": "openai/gpt-oss-120b",
+  "erro": null
+}

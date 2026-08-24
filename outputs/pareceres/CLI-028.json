@@ -1,0 +1,36 @@
+{
+  "cliente_id": "CLI-028",
+  "status": "erro_api",
+  "nivel_risco": null,
+  "tipologia_suspeita": null,
+  "red_flags": [],
+  "justificativa": null,
+  "ferramentas_chamadas": [
+    "historico_cliente",
+    "operacoes_do_dia"
+  ],
+  "trajetoria": [
+    {
+      "iteracao": 1,
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-028"
+      }
+    },
+    {
+      "iteracao": 2,
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-028",
+        "data": "2026-03-21"
+      }
+    }
+  ],
+  "n_iteracoes": 3,
+  "tokens_entrada": 3164,
+  "tokens_saida": 470,
+  "latencia_s": 46.89690569999948,
+  "custo_estimado_usd": 0.002238,
+  "modelo": "openai/gpt-oss-120b",
+  "erro": "Error code: 400 - {'error': {'message': \"Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools\", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '{\"name\": \"JSON\", \"arguments\": {\\n  \"nivel_risco\": \"medio"
+}
