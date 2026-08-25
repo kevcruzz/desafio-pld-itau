@@ -1,0 +1,111 @@
+candidato: Kevin Cruz
+modelo_usado: openai/gpt-oss-20b
+provedor: groq
+horas_dedicadas: 10
+
+# O modelo sugerido no enunciado (llama-3.3-70b) nao existe mais no catalogo do
+# Groq — retorna 404. A escolha do substituto esta em docs/DECISOES.md secao 5.1.
+
+nivel_1:
+  limpeza_dados:
+    status: completo
+    onde: "nivel_1/nivel_1.ipynb, celulas 2 a 6 (secoes 1 e 2); implementacao em nivel_1/pipeline.py"
+    nota: "3 defeitos tratados (duplicata, data nula, moeda estrangeira) com justificativa
+           por escrito e tabela de sensibilidade medindo quanto cada decisao altera as
+           sinalizacoes"
+
+  regras_pandas:
+    status: completo
+    onde: "nivel_1/nivel_1.ipynb, celulas 10 a 12 (secao 4); implementacao em nivel_1/pipeline.py"
+    nota: "interpretacoes de fronteira ('ultrapassa', 'atinge') documentadas; limiares
+           nomeados no topo do modulo"
+
+  validacao_regras:
+    status: completo
+    onde: "nivel_1/nivel_1.ipynb, celulas 13 a 22 (secao 5)"
+    nota: "Regra 1 validada com caso positivo (CLI-A-1) e DOIS contraexemplos: CLI-A-2
+           (soma acima do limite mas so 2 operacoes grandes) e CLI-A-3 (so nao dispara
+           porque os dados foram tratados). Inclui tabela de sensibilidade provando que
+           sem deduplicar a regra produz falso positivo. Regra 2 validada com a aritmetica
+           exposta cliente a cliente"
+
+  saida_estruturada:
+    status: completo
+    onde: "nivel_1/llm.py (classe ParecerPLD); notebook celulas 23 a 24 e 31 a 33"
+    nota: "Pydantic com vocabulario fechado; 8 formas de resposta malformada testadas,
+           uma delas observada em execucao real. Tokens e latencia registrados por chamada"
+
+  comparacao_prompts:
+    status: completo
+    onde: "nivel_1/nivel_1.ipynb, celulas 25 a 30 (secoes 7 a 9)"
+    nota: "duas versoes com diferenca de design, nao de verbosidade; comparadas em
+           tipologia, ancoragem das red flags, inferencia fabricada e custo"
+
+nivel_2:
+  regras_em_escala:
+    status: completo
+    onde: "nivel_1/pipeline.py, funcao processar(); ranking em ranking_clientes()"
+    nota: "reaproveitamento total — a base maior nao exigiu nenhuma linha nova de codigo,
+           so a troca do caminho do arquivo. Top 10 ordenado por sinalizacoes com volume
+           como desempate"
+
+  ferramentas:
+    status: completo
+    onde: "nivel_2/tools.py"
+    nota: "as tres pedidas (historico_cliente, operacoes_do_dia, perfil_canal) mais
+           emitir_parecer, que da ao agente um caminho explicito de conclusao"
+
+  agente:
+    status: completo
+    onde: "nivel_2/agente.py"
+    nota: "tool calling nativo com decisao do modelo; trajetoria registrada por cliente e
+           variando conforme o caso — clientes de fracionamento comecam por
+           operacoes_do_dia, clientes de valor atipico por historico_cliente. Nenhum
+           cliente chamou o mesmo conjunto na mesma ordem"
+
+  lote:
+    status: parcial
+    onde: "outputs/lote.csv, outputs/pareceres/"
+    nota: "6 dos 10 clientes concluiram com parecer valido. 2 falharam por esgotamento da
+           cota diaria do free tier e 2 por falha de validacao do formato de saida. O lote
+           registra custo e latencia de todas as 10 chamadas, e a analise agregada de
+           tokens/custo/latencia esta completa. Causa e mitigacao em
+           docs/DECISOES.md secoes 5.4 e 5.5"
+
+  confronto:
+    status: completo
+    onde: "nivel_2/confronto.py; resultados em outputs/confronto.csv e
+           outputs/confronto_analise.md; analise em docs/DECISOES.md secao 6"
+    nota: "executado sobre os 6 clientes com parecer concluido. O criterio sugerido no
+           enunciado (cliente pego pelas duas regras) produz conjunto VAZIO nesta base —
+           as duas regras capturam populacoes disjuntas. Criterio graduado proprio,
+           justificado. Resultado: 0% de concordancia exata, 33% adjacente, agente mais
+           brando em 6 de 6. A analise das divergencias identifica tres defeitos de
+           desenho das regras e explica por que 0% e informativo em vez de ruim"
+
+nivel_3:
+  trilha_escolhida: A
+  status: nao_feito
+  plano: "docs/DECISOES.md secao 8.4"
+  nota: "escolheria a Trilha A (multiagente) porque reaproveita tools.py sem alteracao e
+         porque o Triador resolveria um problema de custo que eu medi: hoje todo cliente
+         recebe investigacao completa, inclusive os que o proprio agente classifica como
+         risco baixo em duas ferramentas. O plano inclui como eu validaria se a
+         arquitetura se justifica"
+
+bonus:
+  observabilidade_custo:
+    status: completo
+    onde: "nivel_1/llm.py (dataclass Telemetria); outputs/lote.csv; agregados no final de
+           agente.py rodar_lote()"
+    nota: "tokens de entrada e saida, latencia, numero de tentativas, custo estimado e
+           flag de cache por chamada. Agregados do lote: 49.993 tokens de entrada, 15.336
+           de saida, US$ 0,0416 estimados, latencia media 48,7s e p95 71s. A medicao de
+           reasoning_tokens levou ao redimensionamento do orcamento de tokens
+           (docs/DECISOES.md secao 5.1)"
+  docker:
+    status: nao_feito
+  rag:
+    status: nao_feito
+  segunda_trilha_nivel_3:
+    status: nao_feito
