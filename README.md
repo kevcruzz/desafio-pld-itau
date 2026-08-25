@@ -16,7 +16,7 @@ nenhum ponto o modelo é responsável por um número que importa.
 |---|---|
 | **Nível 1** — tratamento, regras, análise com LLM | completo |
 | **Nível 2** — escala, ferramentas, agente, lote, confronto | completo, com lote parcial (6 de 10 pareceres concluídos) |
-| **Nível 3** | não implementado; plano em `docs/DECISOES.md` §8.4 |
+| **Nível 3** — Trilha A, fluxo multiagente | completo, executado sobre 5 clientes |
 
 Detalhe item a item em `ENTREGA.yaml`.
 
@@ -53,6 +53,10 @@ python tools.py              # testa as ferramentas, sem usar a API
 python agente.py CLI-029     # um cliente
 python agente.py lote        # os 10 mais sinalizados → outputs/
 python confronto.py          # compara regras x agente → outputs/
+
+cd ../nivel_3
+python fluxo.py CLI-029      # fluxo multiagente sobre um caso
+python fluxo.py lote 5       # sobre os 5 mais sinalizados → outputs/nivel_3/
 ```
 
 O lote leva 8 a 12 minutos: há intervalo entre chamadas para respeitar o teto de tokens
@@ -72,13 +76,17 @@ por minuto da camada gratuita.
 │   ├── tools.py            ferramentas que o agente consulta
 │   ├── agente.py           agente com tool calling + execução em lote
 │   └── confronto.py        regras x parecer do agente
+├── nivel_3/
+│   └── fluxo.py            Triador → Investigador → Redator (Trilha A)
 ├── outputs/
 │   ├── lote.csv            uma linha por cliente, com custo e trajetória
 │   ├── pareceres/          um JSON por cliente, com trajetória completa
 │   ├── confronto.csv
-│   └── confronto_analise.md
+│   ├── confronto_analise.md
+│   └── nivel_3/            EstadoCaso por cliente + tabela comparativa
 └── docs/
-    ├── DECISOES.md         trade-offs, limitações e plano
+    ├── DECISOES.md         trade-offs, limitações e resultados
+    ├── ARQUITETURA.md      diagrama Mermaid do fluxo multiagente
     └── USO_DE_IA.md
 ```
 
@@ -137,6 +145,24 @@ ser calculado fora do modelo.
 Em contrapartida, a interpretação é onde o modelo agregou valor real: nenhuma das duas
 regras diria que `CLI-029` é falso positivo, e o agente disse, com três argumentos
 independentes.
+
+### Sobre o fluxo multiagente do Nível 3
+
+Implementei a Trilha A — Triador, Investigador e Redator encadeados, com estado
+compartilhado e condição de parada. Funciona: 4 dos 5 clientes concluíram o fluxo completo,
+e o Investigador reaproveita as ferramentas do Nível 2 sem nenhuma alteração.
+
+**Mas a hipótese que justificava a arquitetura não se confirmou.** Eu esperava que o Triador
+arquivasse parte dos casos e gerasse economia; ele arquivou **zero em cinco**. Sem
+arquivamento, o custo por caso fica igual ou maior que o do agente único, com três chamadas
+em vez de uma e mais pontos de falha.
+
+E apareceu um problema que eu não antecipava: o Redator só sabe o que o Investigador
+escreveu. Três casos tiveram uma única evidência registrada, e no `CLI-029` a evidência
+decisiva — os tipos das operações — não foi passada adiante, o que mudou a conclusão em
+relação ao agente único. Separar papéis dá rastreabilidade e cria um funil de informação.
+
+Reporto isso porque medi. A análise está em `docs/DECISOES.md` §10.
 
 ### Sobre o confronto
 

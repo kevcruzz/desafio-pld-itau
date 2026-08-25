@@ -56,6 +56,14 @@ renderizado, não quando revisei o código.
 conferir se o problema acima tinha sido corrigido estava errado e reportava 34 problemas
 onde havia zero. Passei alguns minutos investigando um arquivo que já estava certo.
 
+**A previsão de economia do multiagente.** Quando desenhamos o fluxo do Nível 3, a
+justificativa era que o Triador arquivaria parte dos casos e geraria economia de tokens.
+Escrevi isso na `ARQUITETURA.md` como se fosse fato antes de rodar. Rodei: o Triador
+arquivou **zero em cinco**. A hipótese estava errada, e o motivo é meio óbvio em retrospecto
+— eu tinha dado a ele só o resumo do caso, sem ferramenta nenhuma, e com pouca informação a
+decisão segura é sempre investigar. Corrigi os documentos pra dizer o que a medição mostrou
+em vez do que eu esperava.
+
 ## O que não delegei
 
 As decisões que o enunciado avalia. O que fazer com as linhas sem data, como interpretar

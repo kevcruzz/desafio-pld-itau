@@ -113,37 +113,55 @@ Falha de API em qualquer papel também encerra, com o status registrado.
 
 ---
 
-## Por que essa arquitetura, e não o agente único do Nível 2
+## A hipótese que motivou a arquitetura — e o que a medição mostrou
 
-Não é uma camada a mais por elegância. É resposta a um número que eu medi.
+A ideia era responder a um número que eu tinha medido no Nível 2: lá, **todo cliente recebe
+investigação completa**, e 4 dos 6 casos concluídos saíram como risco baixo, cada um
+custando entre 5.900 e 11.100 tokens de entrada. Gastei o fluxo inteiro em casos que o
+próprio agente concluiu que não sustentavam suspeita.
 
-No Nível 2, **todo cliente recebe investigação completa**. Rodando o lote, 4 dos 6 casos
-concluídos saíram como risco baixo — e cada um custou entre 5.900 e 11.100 tokens de
-entrada. Ou seja, gastei o fluxo inteiro em casos que o próprio agente concluiu que não
-sustentavam suspeita.
+O triador deveria atacar isso: caso arquivado custaria **uma chamada curta** em vez do fluxo
+inteiro.
 
-O triador ataca exatamente isso: um caso arquivado custa **uma chamada curta** em vez do
-fluxo inteiro. O `fluxo.py` mede e imprime essa diferença ao final do lote.
+### Rodei, e não foi o que aconteceu
 
-**E se não se pagar, eu digo.** Se o multiagente gastar mais tokens para chegar nos mesmos
-pareceres do agente único, a arquitetura não se justifica — a comparação está no
-`DECISOES.md`, e reportar que não valeu é um resultado tão legítimo quanto o contrário.
+**O triador arquivou zero casos em cinco.** Ele mandou investigar todos.
+
+E não é bug — é ele sendo conservador. Diante de "a regra foi acionada", com só o resumo do
+caso e nenhuma ferramenta, a decisão segura é sempre investigar. **O que torna o triador
+barato é o mesmo que o impede de arquivar.** Não percebi essa tensão quando desenhei.
+
+Sem arquivamento, a economia não existe: o custo por caso ficou parecido ou maior que o do
+agente único, com três chamadas em vez de uma.
+
+Deixo a arquitetura como está e reporto o resultado. A análise completa — incluindo o
+gargalo de informação entre investigador e redator, que me pareceu mais grave que o custo —
+está no `DECISOES.md`, seção 10.
+
+Ajustar o triador até ele arquivar alguma coisa só para mostrar economia seria medir o meu
+ajuste, não a arquitetura.
 
 ---
 
 ## O trade-off que essa arquitetura cria
 
-**Ganha:** custo menor nos casos arquivados, papéis com responsabilidade separada, e o
-parecer fica rastreável — cada red flag vem de uma evidência registrada, que veio de uma
-ferramenta.
+**Ganha:** papéis com responsabilidade separada, e o parecer fica rastreável — cada red flag
+vem de uma evidência registrada, que veio de uma ferramenta. O ganho de custo nos casos
+arquivados era o principal argumento, mas **não se materializou** porque o triador não
+arquivou nenhum caso.
 
 **Perde:** mais pontos de falha. São três chamadas em vez de uma, e cada uma pode falhar por
 quota, validação ou formato. Nos casos que vão até o fim, a latência é maior.
 
-**E tem um risco de qualidade que vale registrar:** o triador pode arquivar um caso que
-merecia investigação. No agente único isso não acontece, porque todo caso é investigado. É
-uma troca deliberada de recall por custo — e numa mesa de PLD real, essa é uma decisão que
-teria que ser aprovada pela área de compliance, não pela engenharia.
+**E tem um risco de qualidade que apareceu na prática, diferente do que eu antecipava.** Eu
+esperava que o problema fosse o triador arquivar caso que merecia investigação — troca de
+recall por custo. Na medição, o problema foi outro: **o redator só sabe o que o investigador
+escreveu**. Três dos casos concluídos tiveram uma única evidência registrada, e o redator
+não tinha base para nada além de "risco baixo". No `CLI-029`, o investigador deixou de
+registrar os tipos das operações, que era o argumento decisivo, e o parecer saiu diferente
+do que o agente único produziu com a mesma base.
+
+Separar papéis dá rastreabilidade e cria um funil. Detalhes na seção 10 do `DECISOES.md`.
 
 ---
 

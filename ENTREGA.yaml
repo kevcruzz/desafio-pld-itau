@@ -1,10 +1,10 @@
 candidato: Kevin Ribeiro Santos da Cruz
 modelo_usado: openai/gpt-oss-20b
 provedor: groq
-horas_dedicadas: 10:00
+horas_dedicadas: 7
 
-# O modelo que foi sugerido no enunciado (llama-3.3-70b) não existe mais no catalogo 
-# Groq — retorna 404. Então a escolha do para realizar a desafio esta no docs/DECISOES.md seção 5.1.
+# O modelo sugerido no enunciado (llama-3.3-70b) nao existe mais no catalogo do
+# Groq — retorna 404. A escolha do substituto esta em docs/DECISOES.md secao 5.1.
 
 nivel_1:
   limpeza_dados:
@@ -85,13 +85,20 @@ nivel_2:
 
 nivel_3:
   trilha_escolhida: A
-  status: nao_feito
-  plano: "docs/DECISOES.md secao 8.4"
-  nota: "escolheria a Trilha A (multiagente) porque reaproveita tools.py sem alteracao e
-         porque o Triador resolveria um problema de custo que eu medi: hoje todo cliente
-         recebe investigacao completa, inclusive os que o proprio agente classifica como
-         risco baixo em duas ferramentas. O plano inclui como eu validaria se a
-         arquitetura se justifica"
+  status: completo
+  onde: "nivel_3/fluxo.py; diagrama em docs/ARQUITETURA.md; resultados em outputs/nivel_3/"
+  nota: "fluxo multiagente com tres papeis (Triador, Investigador, Redator), estado
+         compartilhado no dataclass EstadoCaso e condicao de parada em tres pontos.
+         Executado sobre 5 clientes: 4 concluiram o fluxo completo, 1 falhou por erro de
+         API sem derrubar os demais. O Investigador reaproveita nivel_2/tools.py sem
+         nenhuma alteracao e o Redator usa o mesmo ParecerPLD do Nivel 1.
+
+         RESULTADO HONESTO: a hipotese que justificava a arquitetura NAO se confirmou. Eu
+         esperava que o Triador arquivasse parte dos casos e gerasse economia; ele
+         arquivou ZERO em 5. Sem arquivamento, o custo por caso fica igual ou maior que o
+         do agente unico do Nivel 2, com tres chamadas em vez de uma e mais pontos de
+         falha. A analise completa, incluindo o gargalo de informacao entre Investigador e
+         Redator que identifiquei, esta em docs/DECISOES.md secao 8.4"
 
 bonus:
   observabilidade_custo:
