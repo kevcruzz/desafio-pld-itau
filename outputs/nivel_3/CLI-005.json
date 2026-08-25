@@ -1,0 +1,54 @@
+{
+  "cliente_id": "CLI-005",
+  "resumo_inicial": "CASO PARA TRIAGEM\n\nCliente: CLI-005\nOperacoes no periodo: 11\nVolume total: R$ 64,742.66\nTicket mediano: R$ 2,144.18\n\nSinalizacao recebida:\n- REGRA DE VALOR ATIPICO acionada em 2 operacao(oes)",
+  "triagem_decisao": "investigar",
+  "triagem_motivo": "valor atípico em duas operações",
+  "triagem_prioridade": "normal",
+  "evidencias": [
+    "O cliente realizou 11 operações no período de 2026-03-14 a 2026-05-07, totalizando R$ 64.742,66.",
+    "O ticket médio foi de R$ 5.885,70 e o ticket mediano de R$ 2.144,18.",
+    "A maior operação foi de R$ 30.743,97, realizada em 2026-03-14 via cartão, tipo pagamento.",
+    "A segunda operação de valor atípico foi de R$ 11.988,17, realizada em 2026-04-12 via espécie, tipo transferência recebida.",
+    "O limite aplicado para a regra de valor atípico foi de R$ 10.720,90, portanto ambas as operações excederam esse limite.",
+    "O cliente possui 10 contrapartes distintas, com 2 transações recorrentes com Cristal Comercio SA.",
+    "As operações foram distribuídas em 8 dias distintos, sem concentração em um único dia.",
+    "A distribuição por canal mostra 2 operações via espécie (18,18% das operações), 2 via cartão (18,18%), 3 via pix (27,27%), 3 via TED (27,27%) e 1 via boleto (9,09%).",
+    "A distribuição por tipo indica 5 transferências recebidas, 2 depósitos, 2 pagamentos, 1 transferência enviada e 1 saque.",
+    "Existem 2 operações sem data, o que pode indicar dados incompletos.",
+    "Nenhuma operação de valor atípico foi detectada em dias consecutivos, indicando ausência de fracionamento."
+  ],
+  "ferramentas_chamadas": [
+    "historico_cliente"
+  ],
+  "iteracoes_investigacao": 2,
+  "nivel_risco": "medio",
+  "tipologia_suspeita": "Nao caracterizada",
+  "red_flags": [
+    "Operação de valor atípico via cartão em 2026-03-14",
+    "Operação de valor atípico via espécie em 2026-04-12",
+    "Excedência do limite de valor atípico (R$ 10.720,90)"
+  ],
+  "justificativa": "O cliente realizou duas operações que excederam o limite de valor atípico, uma via cartão e outra via espécie, indicando transações de valor elevado. Não há evidências de fracionamento, concentração em dias ou canais, nem de padrões de uso intensivo de espécie. A ausência de outras irregularidades sugere que o risco não é alto, mas requer observação adicional.",
+  "encerrado_em": "redator",
+  "status": "ok",
+  "erro": null,
+  "tokens_por_papel": {
+    "triador": [
+      437,
+      208
+    ],
+    "investigador": [
+      2530,
+      3423
+    ],
+    "redator": [
+      902,
+      777
+    ]
+  },
+  "latencia_por_papel": {
+    "triador": 0.7769200999973691,
+    "investigador": 34.19426110000131,
+    "redator": 5.500743300002796
+  }
+}

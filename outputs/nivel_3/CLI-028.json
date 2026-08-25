@@ -1,0 +1,41 @@
+{
+  "cliente_id": "CLI-028",
+  "resumo_inicial": "CASO PARA TRIAGEM\n\nCliente: CLI-028\nOperacoes no periodo: 12\nVolume total: R$ 88,750.80\nTicket mediano: R$ 4,430.25\n\nSinalizacao recebida:\n- REGRA DE VALOR ATIPICO acionada em 2 operacao(oes)",
+  "triagem_decisao": "investigar",
+  "triagem_motivo": "valor atipico em 2 operações",
+  "triagem_prioridade": "normal",
+  "evidencias": [
+    "Investigacao encerrada sem registro estruturado de evidencias apos 3 iteracoes."
+  ],
+  "ferramentas_chamadas": [
+    "historico_cliente",
+    "operacoes_do_dia"
+  ],
+  "iteracoes_investigacao": 3,
+  "nivel_risco": "baixo",
+  "tipologia_suspeita": "Nao caracterizada",
+  "red_flags": [],
+  "justificativa": "A investigação não registrou evidências estruturadas após três iterações, apesar da regra de valor atípico ter sido acionada em duas operações. Sem dados concretos que sustentem a suspeita, não há elementos que indiquem comportamento incompatível com o perfil do cliente. Assim, o risco é considerado baixo e não há red flags a serem reportadas.",
+  "encerrado_em": "redator",
+  "status": "ok",
+  "erro": null,
+  "tokens_por_papel": {
+    "triador": [
+      437,
+      199
+    ],
+    "investigador": [
+      4238,
+      3446
+    ],
+    "redator": [
+      584,
+      293
+    ]
+  },
+  "latencia_por_papel": {
+    "triador": 4.920694700002059,
+    "investigador": 45.967504699998244,
+    "redator": 3.8605148999995436
+  }
+}

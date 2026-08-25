@@ -1,0 +1,33 @@
+{
+  "cliente_id": "CLI-023",
+  "resumo_inicial": "CASO PARA TRIAGEM\n\nCliente: CLI-023\nOperacoes no periodo: 12\nVolume total: R$ 148,535.02\nTicket mediano: R$ 3,241.16\n\nSinalizacao recebida:\n- REGRA DE VALOR ATIPICO acionada em 2 operacao(oes)",
+  "triagem_decisao": "investigar",
+  "triagem_motivo": "valor atipico em 2 operações",
+  "triagem_prioridade": "normal",
+  "evidencias": [],
+  "ferramentas_chamadas": [
+    "historico_cliente"
+  ],
+  "iteracoes_investigacao": 2,
+  "nivel_risco": null,
+  "tipologia_suspeita": null,
+  "red_flags": [],
+  "justificativa": null,
+  "encerrado_em": "investigador",
+  "status": "erro_api",
+  "erro": "investigador: Error code: 400 - {'error': {'message': 'Failed to parse tool call arguments as JSON', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '{\"name\": \"registrar_evidencias\"",
+  "tokens_por_papel": {
+    "triador": [
+      437,
+      219
+    ],
+    "investigador": [
+      1044,
+      433
+    ]
+  },
+  "latencia_por_papel": {
+    "triador": 0.9552853000022878,
+    "investigador": 32.92794689999937
+  }
+}

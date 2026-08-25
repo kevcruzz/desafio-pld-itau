@@ -1,0 +1,6 @@
+cliente_id,status,encerrado_em,triagem,prioridade,nivel_risco,tipologia,n_evidencias,n_red_flags,ferramentas,tokens_entrada,tokens_saida,latencia_s,custo_estimado_usd,modelo
+CLI-014,ok,redator,investigar,normal,baixo,Nao caracterizada,1,0,historico_cliente,3586,4779,20.72,0.005891,openai/gpt-oss-20b
+CLI-023,erro_api,investigador,investigar,normal,,,0,0,historico_cliente,1481,652,33.88,0.001389,openai/gpt-oss-20b
+CLI-028,ok,redator,investigar,normal,baixo,Nao caracterizada,1,0,historico_cliente > operacoes_do_dia,5259,3938,54.75,0.006214,openai/gpt-oss-20b
+CLI-013,ok,redator,investigar,normal,baixo,Nao caracterizada,1,0,historico_cliente,3541,4490,46.65,0.005636,openai/gpt-oss-20b
+CLI-005,ok,redator,investigar,normal,medio,Nao caracterizada,11,3,historico_cliente,3869,4408,40.47,0.005765,openai/gpt-oss-20b
