@@ -1,10 +1,10 @@
-candidato: Kevin Cruz
+candidato: Kevin Ribeiro Santos da Cruz
 modelo_usado: openai/gpt-oss-20b
 provedor: groq
-horas_dedicadas: 10
+horas_dedicadas: 10:00
 
-# O modelo sugerido no enunciado (llama-3.3-70b) nao existe mais no catalogo do
-# Groq — retorna 404. A escolha do substituto esta em docs/DECISOES.md secao 5.1.
+# O modelo que foi sugerido no enunciado (llama-3.3-70b) não existe mais no catalogo 
+# Groq — retorna 404. Então a escolha do para realizar a desafio esta no docs/DECISOES.md seção 5.1.
 
 nivel_1:
   limpeza_dados:
